@@ -4,8 +4,12 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const { UserModel } = require('./models');
 const jwt = require('jsonwebtoken');
+const { errorHandler } = require('./middleware');
 dotenv.config();
 const app = express();
+
+
+app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("Hello, this is your server!");
@@ -42,6 +46,8 @@ app.post('/login', async (req, res) => {
     res.status(401).json({ error: 'Invalid credentials' });
   }
 });
+
+
 
 
 app.listen(process.env.PORT, () => {
